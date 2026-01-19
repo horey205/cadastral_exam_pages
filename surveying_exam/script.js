@@ -45,7 +45,7 @@ function startQuiz(subject, mode) {
     if (selectedSource === '기출') {
         filtered = filtered.filter(q => {
             const src = q.source || '';
-            return src === '기출' || src.includes('지적산업기사');
+            return src === '기출' || src.includes('지적산업기사') || src.includes('측량');
         });
     }
 
