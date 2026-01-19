@@ -8,10 +8,9 @@ let currentMode = 'study'; // 'study' or 'exam'
 let selectedSource = '기출'; // '기출' or 'all'
 
 // Initialize questions from loaded script
-// Initialize questions from loaded script
 function initQuiz() {
-    if (typeof questionData !== 'undefined') {
-        allQuestions = questionData;
+    if (typeof QUESTIONS !== 'undefined') {
+        allQuestions = QUESTIONS;
         console.log("Loaded questions:", allQuestions.length);
         const countElem = document.getElementById('total-q-count');
         if (countElem) countElem.innerText = allQuestions.length;
