@@ -8,15 +8,30 @@ let currentMode = 'study'; // 'study' or 'exam'
 let selectedSource = '기출'; // '기출' or 'all'
 
 // Initialize questions from loaded script
-function initQuiz() {
-    if (typeof questionData !== 'undefined') {
-        allQuestions = questionData;
-        console.log("Loaded questions:", allQuestions.length);
+// Initialize questions via Fetch API
+async function initQuiz() {
+    try {
+        console.log("Fetching questions.json...");
+        // Show loading state if needed
         const countElem = document.getElementById('total-q-count');
-        if (countElem) countElem.innerText = allQuestions.length + "+";
-    } else {
-        console.error("questions.js failed to load.");
-        alert("데이터 파일을 불러오지 못했습니다. 새로고침을 해주세요.");
+        if (countElem) countElem.innerText = "로딩 중...";
+
+        const response = await fetch('questions.json');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        allQuestions = await response.json();
+        console.log("Loaded questions:", allQuestions.length);
+
+        if (countElem) countElem.innerText = allQuestions.length.toLocaleString();
+
+    } catch (e) {
+        console.error("Failed to load questions:", e);
+        const countElem = document.getElementById('total-q-count');
+        if (countElem) countElem.innerText = "Error";
+        alert("데이터 파일을 불러오지 못했습니다. 네트워크 상태를 확인하거나 페이지를 새로고침해주세요.\n(" + e.message + ")");
     }
 }
 
