@@ -176,7 +176,6 @@
     <script src="questions.js"></script>
     <script src="script.js"></script>
     <script>
-        // 다중 해시 + 난독화 로그인
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -189,19 +188,15 @@
             const pw = document.getElementById('user-pw').value;
             const err = document.getElementById('user-login-error');
 
+            // 해시값 (ID: user, PW: user2685)
+            const validIdHash = "04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb";
+            const validPwHash = "2ce7c4e813cdec5d49d684e60c591c24f5ad0c3d1e174fe9fd5cb7161047983d";
+
             try {
-                // 2단계 해싱: SHA-256(SHA-256(input) + salt)
-                const salt = "cadastral_survey_2024";
-                const idHash1 = await sha256(id);
-                const idHash2 = await sha256(idHash1 + salt);
-                const pwHash1 = await sha256(pw);
-                const pwHash2 = await sha256(pwHash1 + salt);
+                const idHash = await sha256(id);
+                const pwHash = await sha256(pw);
 
-                // 검증용 해시 (실제 값: user / user2685)
-                const validIdHash = "8f3d8c5e7a2b1f4e9c6d3a7b5e8f2c1d9a4b7e3f6c2d8a5b1e4f7c9d6a3b8e5f2";
-                const validPwHash = "7e2c9f4a1d6b3e8c5f2a9d7b4e1c8f6a3d9b5e2c7f4a1d8b6e3c9f5a2d7b4e1c";
-
-                if (idHash2 === validIdHash && pwHash2 === validPwHash) {
+                if (idHash === validIdHash && pwHash === validPwHash) {
                     document.getElementById('user-login-overlay').classList.add('hidden');
                     document.getElementById('app').classList.remove('hidden');
                     document.body.style.overflow = '';
