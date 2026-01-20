@@ -20,18 +20,18 @@ TARGET_JS_PATH = os.path.join(TARGET_APP_DIR, "questions.js")
 # ==========================================
 # 2. 초기화 (폴더 생성)
 # ==========================================
-print(f"🚀 questions.js 갱신 시작: {TARGET_JS_PATH}")
+print(f"[*] questions.js generation start: {TARGET_JS_PATH}")
 
 if not os.path.exists(TARGET_IMAGES_DIR):
     os.makedirs(TARGET_IMAGES_DIR)
-    print("  ✅ 이미지 폴더 생성 완료")
+    print("  [OK] image folder created")
 
 # ==========================================
 # 4. 데이터 병합 및 questions.js 생성
 # ==========================================
 all_questions = []
 
-print("  📂 데이터 처리 중...")
+print("  [INFO] processing data...")
 if os.path.exists(DATA_SOURCE_DIR):
     for fname in os.listdir(DATA_SOURCE_DIR):
         if fname.endswith(".json") and "backup" not in fname and "temp" not in fname:
@@ -91,5 +91,5 @@ js_content = f"const questionData = {json.dumps(all_questions, ensure_ascii=Fals
 with open(TARGET_JS_PATH, 'w', encoding='utf-8') as f:
     f.write(js_content)
 
-print(f"  ✨ questions.js 생성 완료: 총 {len(all_questions)} 문제")
-print("🎉 questions.js 갱신 완료!")
+print(f"  [DONE] questions.js created: total {len(all_questions)} questions")
+print("[FINISH] questions.js update complete!")
