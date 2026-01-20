@@ -112,8 +112,19 @@ function showQuestion() {
 
     // Header Info
     document.getElementById('curr-subject').innerText = q.subject;
-    document.getElementById('curr-num').innerText = q.num;
+    document.getElementById('curr-num').innerText = q.num || `문 ${currentIndex + 1}.`;
     document.getElementById('q-text').innerText = q.text;
+
+    // Date Info
+    const dateElem = document.getElementById('curr-date');
+    if (q.source) {
+        const dateMatch = q.source.match(/\((.*?)\)/);
+        const dateText = dateMatch ? dateMatch[1] : q.source;
+        dateElem.innerText = dateText;
+        dateElem.classList.remove('hidden');
+    } else {
+        dateElem.classList.add('hidden');
+    }
 
     // Progress
     const progress = (currentIndex / currentQuiz.length) * 100;

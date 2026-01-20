@@ -85,6 +85,7 @@ h1 {
 .gradient-text {
     background: var(--gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -280,7 +281,14 @@ h1 {
 .q-meta {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+}
+
+.meta-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .tag {
@@ -295,6 +303,13 @@ h1 {
 .q-id {
     color: var(--text-muted);
     font-weight: 600;
+}
+
+.q-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    opacity: 0.8;
 }
 
 .q-content {
@@ -468,15 +483,18 @@ h1 {
 }
 
 /* Image Handling in Content */
-.option-btn img, .exp-content img {
+.option-btn img,
+.exp-content img {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
     margin-top: 5px;
-    background: white; /* Make formulas readable in dark mode */
+    background: white;
+    /* Make formulas readable in dark mode */
     padding: 5px;
 }
 
 .option-btn {
-    flex-wrap: wrap; /* Allow image to wrap if needed */
+    flex-wrap: wrap;
+    /* Allow image to wrap if needed */
 }
